@@ -30,6 +30,6 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/babel ./index.js --out-dir ./dist",
-    "server: "node server.js"
+    "server": "node server.js"
   }
 }
