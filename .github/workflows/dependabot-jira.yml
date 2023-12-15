@@ -23,4 +23,4 @@ jobs:
           project: CH
           issuetype: KTLO
           summary: Vulnerable Package Upgrades
-          description: "Dependabot has opened a new PR: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/pull/${{ github.event.pull_request.number }}"
+          description: "Dependabot has opened a new PR: ${{ github.event.pull_request.html_url }}"
