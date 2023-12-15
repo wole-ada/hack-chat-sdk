@@ -1,0 +1,26 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+name: Open Jira Ticket for Dependabot PRs
+
+jobs:
+  create-jira-ticket:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Jira Login
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.TEMP_JIRA_TOKEN }}
+      - name: Create Ticket
+        id: create
+        uses: atlassian/gajira-create@v3
+        with:
+          project: CH
+          issuetype: KTLO
+          summary: Vulnerable Package Upgrades
+          description: "Dependabot has opened a new PR: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/pull/${{ github.event.pull_request.number }}"
